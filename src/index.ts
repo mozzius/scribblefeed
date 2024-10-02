@@ -1,18 +1,20 @@
-import events from 'node:events'
-import type http from 'node:http'
-import express, { type Express } from 'express'
-import { pino } from 'pino'
-import type { OAuthClient } from '@atproto/oauth-client-node'
-import { Firehose } from '@atproto/sync'
-
-import { createDb, migrateToLatest } from '#/db'
-import { env } from '#/lib/env'
-import { createIngester } from '#/ingester'
-import { createRouter } from '#/routes'
-import { createClient } from '#/auth/client'
-import { createBidirectionalResolver, createIdResolver, BidirectionalResolver } from '#/id-resolver'
-import type { Database } from '#/db'
-import { IdResolver, MemoryCache } from '@atproto/identity'
+import events from "node:events"
+import type http from "node:http"
+import { IdResolver, MemoryCache } from "@atproto/identity"
+import type { OAuthClient } from "@atproto/oauth-client-node"
+import { Firehose } from "@atproto/sync"
+import { createClient } from "#/auth/client"
+import { createDb, migrateToLatest, type Database } from "#/db"
+import {
+  BidirectionalResolver,
+  createBidirectionalResolver,
+  createIdResolver,
+} from "#/id-resolver"
+import { createIngester } from "#/ingester"
+import { env } from "#/lib/env"
+import { createRouter } from "#/routes"
+import express, { type Express } from "express"
+import { pino } from "pino"
 
 // Application state passed to the router and elsewhere
 export type AppContext = {
@@ -27,12 +29,12 @@ export class Server {
   constructor(
     public app: express.Application,
     public server: http.Server,
-    public ctx: AppContext
+    public ctx: AppContext,
   ) {}
 
   static async create() {
     const { NODE_ENV, HOST, PORT, DB_PATH } = env
-    const logger = pino({ name: 'server start' })
+    const logger = pino({ name: "server start" })
 
     // Set up the SQLite database
     const db = createDb(DB_PATH)
@@ -56,7 +58,7 @@ export class Server {
 
     // Create our server
     const app: Express = express()
-    app.set('trust proxy', true)
+    app.set("trust proxy", true)
 
     // Routes & middlewares
     const router = createRouter(ctx)
@@ -67,18 +69,18 @@ export class Server {
 
     // Bind our server to the port
     const server = app.listen(env.PORT)
-    await events.once(server, 'listening')
+    await events.once(server, "listening")
     logger.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`)
 
     return new Server(app, server, ctx)
   }
 
   async close() {
-    this.ctx.logger.info('sigint received, shutting down')
+    this.ctx.logger.info("sigint received, shutting down")
     await this.ctx.ingester.destroy()
     return new Promise<void>((resolve) => {
       this.server.close(() => {
-        this.ctx.logger.info('server closed')
+        this.ctx.logger.info("server closed")
         resolve()
       })
     })
@@ -94,8 +96,8 @@ const run = async () => {
     process.exit()
   }
 
-  process.on('SIGINT', onCloseSignal)
-  process.on('SIGTERM', onCloseSignal)
+  process.on("SIGINT", onCloseSignal)
+  process.on("SIGTERM", onCloseSignal)
 }
 
 run()

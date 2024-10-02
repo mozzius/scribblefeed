@@ -2,13 +2,13 @@
  * GENERATED CODE - DO NOT MODIFY
  */
 import {
-  createServer as createXrpcServer,
-  Server as XrpcServer,
-  Options as XrpcOptions,
   AuthVerifier,
+  createServer as createXrpcServer,
   StreamAuthVerifier,
-} from '@atproto/xrpc-server'
-import { schemas } from './lexicons'
+  Options as XrpcOptions,
+  Server as XrpcServer,
+} from "@atproto/xrpc-server"
+import { schemas } from "./lexicons"
 
 export function createServer(options?: XrpcOptions): Server {
   return new Server(options)

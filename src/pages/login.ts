@@ -1,11 +1,11 @@
-import { html } from '../lib/view'
-import { shell } from './shell'
+import { html } from "../lib/view"
+import { shell } from "./shell"
 
 type Props = { error?: string }
 
 export function login(props: Props) {
   return shell({
-    title: 'Log in',
+    title: "Log in",
     content: content(props),
   })
 }

@@ -1,37 +1,37 @@
-import type { Status } from '#/db'
-import { html } from '../lib/view'
-import { shell } from './shell'
+import type { Status } from "#/db"
+import { html } from "../lib/view"
+import { shell } from "./shell"
 
 const TODAY = new Date().toDateString()
 
 const STATUS_OPTIONS = [
-  '👍',
-  '👎',
-  '💙',
-  '🥹',
-  '😧',
-  '😤',
-  '🙃',
-  '😉',
-  '😎',
-  '🤓',
-  '🤨',
-  '🥳',
-  '😭',
-  '😤',
-  '🤯',
-  '🫡',
-  '💀',
-  '✊',
-  '🤘',
-  '👀',
-  '🧠',
-  '👩‍💻',
-  '🧑‍💻',
-  '🥷',
-  '🧌',
-  '🦋',
-  '🚀',
+  "👍",
+  "👎",
+  "💙",
+  "🥹",
+  "😧",
+  "😤",
+  "🙃",
+  "😉",
+  "😎",
+  "🤓",
+  "🤨",
+  "🥳",
+  "😭",
+  "😤",
+  "🤯",
+  "🫡",
+  "💀",
+  "✊",
+  "🤘",
+  "👀",
+  "🧠",
+  "👩‍💻",
+  "🧑‍💻",
+  "🥷",
+  "🧌",
+  "🦋",
+  "🚀",
 ]
 
 type Props = {
@@ -43,7 +43,7 @@ type Props = {
 
 export function home(props: Props) {
   return shell({
-    title: 'Home',
+    title: "Home",
     content: content(props),
   })
 }
@@ -60,7 +60,7 @@ function content({ statuses, didHandleMap, profile, myStatus }: Props) {
         ${profile
           ? html`<form action="/logout" method="post" class="session-form">
               <div>
-                Hi, <strong>${profile.displayName || 'friend'}</strong>. What's
+                Hi, <strong>${profile.displayName || "friend"}</strong>. What's
                 your status today?
               </div>
               <div>
@@ -79,20 +79,20 @@ function content({ statuses, didHandleMap, profile, myStatus }: Props) {
           (status) =>
             html`<button
               class=${myStatus?.status === status
-                ? 'status-option selected'
-                : 'status-option'}
+                ? "status-option selected"
+                : "status-option"}
               name="status"
               value="${status}"
             >
               ${status}
-            </button>`
+            </button>`,
         )}
       </form>
       ${statuses.map((status, i) => {
         const handle = didHandleMap[status.authorDid] || status.authorDid
         const date = ts(status)
         return html`
-          <div class=${i === 0 ? 'status-line no-line' : 'status-line'}>
+          <div class=${i === 0 ? "status-line no-line" : "status-line"}>
             <div>
               <div class="status">${status.status}</div>
             </div>

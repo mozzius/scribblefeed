@@ -1,7 +1,7 @@
 // @ts-ignore
-import ssr from 'uhtml/ssr'
-import type initSSR from 'uhtml/types/init-ssr'
-import type { Hole } from 'uhtml/types/keyed'
+import ssr from "uhtml/ssr"
+import type initSSR from "uhtml/types/init-ssr"
+import type { Hole } from "uhtml/types/keyed"
 
 export type { Hole }
 
