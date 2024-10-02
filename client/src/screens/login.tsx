@@ -13,11 +13,11 @@ export function LoginScreen() {
             name="handle"
             placeholder="Enter your handle (e.g. alice.bsky.social)"
             required
-            className="flex-1 rounded border p-2"
+            className="flex-1 rounded border px-4 py-1"
           />
           <button
             type="submit"
-            className="w-content shrink-0 rounded bg-blue-500 p-2 text-white"
+            className="w-content shrink-0 rounded bg-blue-500 px-4 py-1 text-white"
           >
             Log in
           </button>

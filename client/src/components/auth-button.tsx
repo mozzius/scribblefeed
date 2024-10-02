@@ -12,8 +12,6 @@ export function AuthButton() {
 
   if (!data) return null;
 
-  console.log(data);
-
   if (data.authenticated) {
     return (
       <div className="fixed right-4 top-4 flex gap-2 items-center">

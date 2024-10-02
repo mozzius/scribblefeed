@@ -222,15 +222,12 @@ export const createRouter = (ctx: AppContext) => {
 
   // "Set status" handler
   router.post(
-    "/status",
+    "/createPost",
     handler(async (req, res) => {
       // If the user is signed in, get an agent which communicates with their server
       const agent = await getSessionAgent(req, res, ctx);
       if (!agent) {
-        return res
-          .status(401)
-          .type("html")
-          .send("<h1>Error: Session required</h1>");
+        return res.sendStatus(401);
       }
 
       // Construct & validate their status record
@@ -241,10 +238,7 @@ export const createRouter = (ctx: AppContext) => {
         createdAt: new Date().toISOString(),
       };
       if (!Status.validateRecord(record).success) {
-        return res
-          .status(400)
-          .type("html")
-          .send("<h1>Error: Invalid status</h1>");
+        return res.sendStatus(400);
       }
 
       let uri;
